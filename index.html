@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugarson Driving School - Home</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base & existing styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f8fbfe; color: #1e2b37; line-height: 1.6; }
+        
+        /* Navbar */
+        .navbar { background: #003153; padding: 1rem 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+        
+        /* Logo area */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        .logo-text h1 {
+            color: white;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+        .logo-text span {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+        
+        /* Navigation links */
+        .nav-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .nav-links a { 
+            background: transparent; 
+            color: #e0f0ff; 
+            font-size: 1.2rem; 
+            font-weight: 500; 
+            padding: 0.6rem 1.4rem; 
+            border-radius: 40px; 
+            text-decoration: none; 
+            transition: 0.2s; 
+            border: 1px solid transparent; 
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); border-color: #ffc107; color: white; }
+        .nav-links a.active { background: #ffc107; color: #003153; font-weight: 600; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        
+        /* Menu toggle */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+        }
+        .menu-toggle i { transition: 0.3s; }
+        
+        /* Page content */
+        .page-content { max-width: 1300px; margin: 2rem auto; padding: 0 2rem; }
+        h2 { font-size: 2.4rem; color: #003153; }
+        
+        /* ===== 3-IMAGE CAROUSEL STYLES ===== */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            margin: 1.5rem auto 2.5rem;
+            overflow: hidden;
+            border-radius: 32px;
+            box-shadow: 0 20px 30px rgba(0,49,83,0.2);
+            border: 4px solid #003153;
+            background: #d9e5f0;
+            padding: 1rem 0;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+        
+        .carousel-slide {
+            flex: 0 0 calc(33.333% - 0.67rem); /* Exactly 3 slides visible */
+            min-width: 0; /* Prevents flex overflow */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            background: white;
+            aspect-ratio: 4/3; /* Consistent aspect ratio */
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This ensures images fill the space nicely */
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-slide:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Optional caption for images */
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,49,83,0.7);
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .carousel-slide:hover .slide-caption {
+            opacity: 1;
+        }
+        
+        /* Navigation arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 49, 83, 0.8);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            border: 2px solid #ffc107;
+        }
+        
+        .carousel-arrow:hover {
+            background: #ffc107;
+            color: #003153;
+        }
+        
+        .carousel-arrow.prev { left: 10px; }
+        .carousel-arrow.next { right: 10px; }
+        
+        /* Dots indicator */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 1rem 0 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(0,49,83,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .carousel-dot.active-dot {
+            background: #ffc107;
+            transform: scale(1.2);
+            border-color: #003153;
+        }
+        
+        /* Card grid */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .info-card { background: white; border-radius: 24px; padding: 2rem 1.5rem; box-shadow: 0 10px 20px rgba(0,49,83,0.08); border: 1px solid #e6edf5; transition: 0.15s; }
+        .info-card:hover { transform: translateY(-6px); border-color: #ffc107; }
+        .info-card i { font-size: 2.5rem; color: #003153; margin-bottom: 1rem; }
+        .info-card h3 { font-size: 1.7rem; color: #003153; margin-bottom: 0.5rem; }
+        .info-card p { font-size: 1.1rem; color: #2d3f4e; }
+        
+        /* Footer */
+        .footer-note { text-align: center; margin: 3rem 0 0.5rem; color: #6a7f93; border-top: 1px solid #cddbe9; padding-top: 1.5rem; }
+        
+        /* ===== MOBILE STYLES ===== */
+        @media (max-width: 992px) {
+            .carousel-slide {
+                flex: 0 0 calc(50% - 0.5rem); /* 2 images on tablet */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none !important;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+                background: #003153;
+            }
+            
+            .nav-links.show {
+                display: flex !important;
+            }
+            
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+                border-radius: 10px;
+                margin: 5px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-container {
+                align-items: center;
+            }
+            
+            .carousel-slide {
+                flex: 0 0 calc(50% - 0.5rem); /* 2 images on mobile */
+            }
+        }
+        
+        /* Small screen adjustments */
+        @media (max-width: 480px) {
+            .carousel-slide {
+                flex: 0 0 100%; /* 1 image on very small screens */
+            }
+            
+            .carousel-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-track {
+                gap: 0.5rem;
+                padding: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="Sugarson Driving School Logo">
+                <div class="logo-text">
+                    <h1>Sugarson Driving School</h1>
+                    <span>est. 2014</span>
+                </div>
+            </div>
+
+            <!-- hamburger icon -->
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </div>
+            
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="contacts.html">Contacts</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <h2>Your journey starts here 🚗</h2>
+        <p style="font-size: 1.4rem; margin-bottom: 0.5rem;">Reliable · Affordable · Since 2014</p>
+        
+        <!-- 3-IMAGE CAROUSEL - Shows 3 images at once -->
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Slides will be inserted by JavaScript -->
+            </div>
+            
+            <!-- Navigation arrows -->
+            <button class="carousel-arrow prev" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-arrow next" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <!-- Dots indicator -->
+        <div class="carousel-dots" id="carouselDots"></div>
+
+        <!-- quick highlights home -->
+        <div class="card-grid">
+            <div class="info-card">
+                <i class="fas fa-id-card"></i>
+                <h3>Learner’s Licence</h3>
+                <p>Classroom & mock tests – we guide you through the K53 method.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-truck"></i>
+                <h3>Code 8,10,14</h3>
+                <p>Light motor, heavy, and extra heavy. Professional instructors.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Licence renewals</h3>
+                <p>Bookings & paperwork assistance. Disc renewal, PDP, ownership changes.</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="footer-note">
+        <p>Sugarson Driving School © 2024 – established 2014. Reliable & affordable service.</p>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const toggle = document.getElementById("menu-toggle");
+        const nav = document.getElementById("nav-links");
+        const icon = document.getElementById("menu-icon");
+
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("show");
+            if(nav.classList.contains("show")){
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-times");
+            } else {
+                icon.classList.remove("fa-times");
+                icon.classList.add("fa-bars");
+            }
+        });
+
+        // ===== 3-IMAGE CAROUSEL SCRIPT =====
+        const imageFiles = [
+            'image1.jpg',
+            'image2.jpg',
+            'image3.jpg',
+            'image4.jpg',
+            'image5.jpg',
+            'image6.jpg',
+            'image7.png'
+        ];
+        
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        
+        let currentIndex = 0;
+        let slidesPerView = 3; // Default, will be updated based on screen size
+        
+        // Function to determine slides per view based on screen width
+        function getSlidesPerView() {
+            if (window.innerWidth <= 480) return 1;
+            if (window.innerWidth <= 992) return 2;
+            return 3;
+        }
+        
+        // Create slides
+        function createCarousel() {
+            // Clear existing content
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            
+            // Create slides
+            imageFiles.forEach((file, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                
+                const img = document.createElement('img');
+                img.src = file;
+                img.alt = `Driving school image ${index + 1}`;
+                
+                // Optional caption
+                const caption = document.createElement('div');
+                caption.className = 'slide-caption';
+                caption.textContent = `Code ${index % 3 === 0 ? '8' : index % 3 === 1 ? '10' : '14'} Training`;
+                
+                slide.appendChild(img);
+                slide.appendChild(caption);
+                
+                // Handle image errors
+                img.onerror = function() {
+                    this.src = 'https://via.placeholder.com/400x300?text=Sugarson+Driving';
+                };
+                
+                track.appendChild(slide);
+            });
+            
+            // Create dots
+            const totalGroups = Math.ceil(imageFiles.length / slidesPerView);
+            for (let i = 0; i < totalGroups; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active-dot');
+                dot.addEventListener('click', () => goToGroup(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            updateCarousel();
+        }
+        
+        // Go to specific group
+        function goToGroup(index) {
+            slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, imageFiles.length - slidesPerView);
+            currentIndex = Math.min(index * slidesPerView, maxIndex);
+            updateCarousel();
+            updateDots();
+        }
+        
+        // Update carousel position
+        function updateCarousel() {
+            const slideWidth = track.children[0]?.offsetWidth || 0;
+            const gap = 16; // 1rem gap
+            const translateX = -currentIndex * (slideWidth + gap);
+            track.style.transform = `translateX(${translateX}px)`;
+        }
+        
+        // Update dots
+        function updateDots() {
+            const dots = document.querySelectorAll('.carousel-dot');
+            const currentGroup = Math.floor(currentIndex / slidesPerView);
+            dots.forEach((dot, i) => {
+                if (i === currentGroup) {
+                    dot.classList.add('active-dot');
+                } else {
+                    dot.classList.remove('active-dot');
+                }
+            });
+        }
+        
+        // Next slide group
+        function nextSlide() {
+            slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, imageFiles.length - slidesPerView);
+            if (currentIndex + slidesPerView <= maxIndex) {
+                currentIndex += slidesPerView;
+            } else {
+                currentIndex = 0; // Loop back to start
+            }
+            updateCarousel();
+            updateDots();
+        }
+        
+        // Previous slide group
+        function prevSlide() {
+            slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, imageFiles.length - slidesPerView);
+            if (currentIndex - slidesPerView >= 0) {
+                currentIndex -= slidesPerView;
+            } else {
+                currentIndex = maxIndex; // Go to end
+            }
+            updateCarousel();
+            updateDots();
+        }
+        
+        // Handle resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                slidesPerView = getSlidesPerView();
+                currentIndex = Math.min(currentIndex, Math.max(0, imageFiles.length - slidesPerView));
+                updateCarousel();
+                updateDots();
+            }, 150);
+        });
+        
+        // Event listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        
+        // Auto play (optional)
+        let autoPlayInterval;
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+        
+        // Pause on hover
+        const carousel = document.querySelector('.carousel-container');
+        carousel.addEventListener('mouseenter', stopAutoPlay);
+        carousel.addEventListener('mouseleave', startAutoPlay);
+        
+        // Initialize
+        createCarousel();
+        startAutoPlay();
+    </script>
+</body>
+</html>

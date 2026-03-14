@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugarson Driving School - About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Logo styles */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text h1 {
+            color: white;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .logo-text span {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+
+        /* Menu toggle for mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .menu-toggle i {
+            transition: 0.3s;
+        }
+
+        /* Base styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f8fbfe; color: #1e2b37; line-height: 1.6; }
+        
+        /* Navbar */
+        .navbar { background: #003153; padding: 1rem 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+        
+        /* Navigation links */
+        .nav-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .nav-links a { 
+            background: transparent; 
+            color: #e0f0ff; 
+            font-size: 1.2rem; 
+            font-weight: 500; 
+            padding: 0.6rem 1.4rem; 
+            border-radius: 40px; 
+            text-decoration: none; 
+            transition: 0.2s; 
+            border: 1px solid transparent; 
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); border-color: #ffc107; color: white; }
+        .nav-links a.active { background: #ffc107; color: #003153; font-weight: 600; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        
+        /* Page content */
+        .page-content { max-width: 1300px; margin: 2rem auto; padding: 0 2rem; }
+        
+        /* Three-line header like index page */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h2 {
+            font-size: 2.4rem;
+            color: #003153;
+            line-height: 1.2;
+        }
+        
+        .page-header .sub-headline {
+            font-size: 1.4rem;
+            color: #2b4b6f;
+            margin: 0.3rem 0 0.1rem;
+            font-weight: 400;
+        }
+        
+        .page-header .est-date {
+            font-size: 1.1rem;
+            color: #ffc107;
+            font-weight: 600;
+            background: #003153;
+            display: inline-block;
+            padding: 0.3rem 1.5rem;
+            border-radius: 60px;
+            margin-top: 0.3rem;
+            border: 2px solid #ffc107;
+        }
+        
+        /* Card grid */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .info-card { background: white; border-radius: 24px; padding: 2rem 1.5rem; box-shadow: 0 10px 20px rgba(0,49,83,0.08); border: 1px solid #e6edf5; transition: 0.15s; }
+        .info-card:hover { transform: translateY(-6px); border-color: #ffc107; }
+        .info-card i { font-size: 2.5rem; color: #003153; margin-bottom: 1rem; }
+        .info-card h3 { font-size: 1.7rem; color: #003153; margin-bottom: 0.5rem; }
+        .badge { background: #ffc107; color: #003153; font-weight: 600; padding: 0.2rem 1rem; border-radius: 40px; display: inline-block; margin-top: 0.8rem; }
+        
+        /* Footer */
+        .footer-note { text-align: center; margin: 3rem 0 0.5rem; color: #6a7f93; border-top: 1px solid #cddbe9; padding-top: 1.5rem; }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none !important;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+                background: #003153;
+            }
+            
+            .nav-links.show {
+                display: flex !important;
+            }
+            
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+                border-radius: 10px;
+                margin: 5px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-container {
+                align-items: center;
+            }
+            
+            .page-header h2 {
+                font-size: 2rem;
+            }
+            
+            .page-header .sub-headline {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="Sugarson Driving School Logo">
+                <div class="logo-text">
+                    <h1>Sugarson Driving School</h1>
+                    <span>est. 2014</span>
+                </div>
+            </div>
+            
+            <!-- Hamburger icon -->
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </div>
+            
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="contacts.html">Contacts</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <!-- Three-line header like index page -->
+        <div class="page-header">
+            <h2>About Sugarson Driving School</h2>
+            <p class="sub-headline">Your trusted partner on the road · Since 2014</p>
+            <span class="est-date"><i class="fas fa-star" style="margin-right: 5px;"></i>Est. 2014 · Family owned · K53 certified</span>
+        </div>
+        
+        <!-- Main about content -->
+        <div style="background:white; border-radius:30px; padding:2rem; margin:1.5rem 0;">
+            <p style="font-size:1.4rem; margin-bottom:1rem;"><i class="fas fa-star" style="color:#ffc107;"></i> <strong>Founded in 2014</strong>, we have trained hundreds of confident, safe drivers.</p>
+            <p style="font-size:1.2rem;">We are a family-owned driving school based in the community. Our mission is to make driving accessible, affordable, and stress-free. Whether you need a learner's licence, want to drive a heavy truck (Code 14), or simply renew your disc – we're here for you.</p>
+            <div class="badge">Over 9 years of experience</div>
+        </div>
+        
+        <!-- Card grid -->
+        <div class="card-grid">
+            <div class="info-card">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Why us?</h3>
+                <p>Patient instructors, dual-controlled cars, and high pass rate.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Flexible hours</h3>
+                <p>Weekend and evening lessons available for busy schedules.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Fully licensed</h3>
+                <p>Accredited and insured. We follow the K53 standards.</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="footer-note">
+        <p>Sugarson Driving School © 2024 – established 2014. Reliable & affordable service.</p>
+    </div>
+    
+    <script>
+        // Mobile menu toggle
+        const toggle = document.getElementById("menu-toggle");
+        const nav = document.getElementById("nav-links");
+        const icon = document.getElementById("menu-icon");
+
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("show");
+            if(nav.classList.contains("show")){
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-times");
+            } else {
+                icon.classList.remove("fa-times");
+                icon.classList.add("fa-bars");
+            }
+        });
+    </script>
+</body>
+</html>
